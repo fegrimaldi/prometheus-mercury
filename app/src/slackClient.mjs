@@ -4,7 +4,7 @@ import { timeStamp } from "./utils.mjs";
 const SLACK_API_URL = "https://slack.com/api/chat.postMessage";
 const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN;
 const DEFAULT_CHANNEL = process.env.SLACK_DEFAULT_CHANNEL || "#chatops";
-const HEADING = process.env.SITE || "Prometheus Monitoring";
+const HEADING = process.env.HEADING || "Prometheus Monitoring";
 
 /**
  * Send a Slack message with formatted blocks
