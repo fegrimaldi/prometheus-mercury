@@ -1,0 +1,26 @@
+{
+  "name": "slack-middleware",
+  "version": "1.0.0",
+  "description": "Prometheus:Slack MIddleware",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "prometheus",
+    "alertmanager",
+    "slack"
+  ],
+  "author": "Fabricio E. Grimaldi",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/msal-node": "^3.4.1",
+    "axios": "^1.8.4",
+    "body-parser": "^2.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "googleapis": "^148.0.0",
+    "twilio": "^5.5.1"
+  }
+}

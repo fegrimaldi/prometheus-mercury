@@ -1,0 +1,10 @@
+services:
+  mercury:
+    image: silverwolf/mercury:latest
+    container_name: mercury
+    restart: unless-stopped
+    ports:
+      - "9502:9502"
+    env_file:
+      - .env
+    working_dir: /app

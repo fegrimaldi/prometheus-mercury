@@ -1,0 +1,25 @@
+# Use official Node LTS base image
+FROM node:20-alpine
+
+# Create app directory
+WORKDIR /app
+
+# Copy package.json, package-lock.json and source files
+COPY package*.json ./
+COPY .env ./
+COPY app/src/ ./src/
+COPY app/config/ ./config/
+
+# Install dependencies
+RUN npm ci --omit=dev
+
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=9502
+
+# Expose port
+EXPOSE 9502
+
+# Run the app
+CMD ["node", "src/index.mjs"]
