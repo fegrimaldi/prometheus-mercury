@@ -6,8 +6,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import routeAlert from "./router.mjs";
 import sendMSGraphEmail from "./msGraphClient.mjs";
-
 import { timeStamp } from "./utils.mjs";
+const PORT = process.env.PORT || 9502;
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,7 +33,15 @@ app.post("/msgraph-alert", async (req, res) => {
   res.sendStatus(200); // .send("MS Graph emails sent");
 });
 
-const PORT = process.env.PORT || 9502;
+// Automated health check
+app.get("/health", (req, res) => {
+  res.sendStatus(200);
+});
+
+app.get("/", (req, res) => {
+  res.status(403);
+});
+
 app.listen(PORT, () =>
   console.log(`${timeStamp()} 🌐 Mercury Comms is up on port ${PORT}`)
 );
