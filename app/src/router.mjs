@@ -4,6 +4,10 @@ import { timeStamp } from "./utils.mjs";
 
 // import sendMSGraphEmail from "msGraphClient";
 // import sendGoogleEmail from "googleClient";
+// Add this map at the top of the file (outside the function)
+const lastSentTimestamps = new Map();
+const SMS_COOLDOWN_MS = 60 * 60 * 1000
+
 
 /**
  * Main alert dispatcher
@@ -12,21 +16,25 @@ import { timeStamp } from "./utils.mjs";
 async function routeAlert(alert) {
   const severity = alert.labels?.severity || "info";
   const alertname = alert.labels?.alertname || "GenericAlert";
+  const device = alert.labels?.instance || "unknown";
+  const key = `${alertname}:${device}`;
 
   console.log(`${timeStamp()} 📡 Routing alert: ${alertname} [${severity}]`);
 
-  // Slack is always sent (for now)
+  // Slack is always sent
   await sendSlackMessage(alert);
 
-  // 🔜 Example: Add routing logic
   if (severity === "critical") {
-    await sendSMS(alert); // Twilio
-    // await sendMSGraphEmail(alert);
-  }
+    const now = Date.now();
+    const lastSent = lastSentTimestamps.get(key) || 0;
 
-  // if (alertname.startsWith('user-')) {
-  //   await sendGoogleEmail(alert);
-  // }
+    if (now - lastSent > SMS_COOLDOWN_MS) {
+      await sendSMS(alert);
+      lastSentTimestamps.set(key, now);
+    } else {
+      console.log(`${timeStamp()} ⏳ SMS throttled for ${key}`);
+    }
+  }
 }
 
 export default routeAlert;
