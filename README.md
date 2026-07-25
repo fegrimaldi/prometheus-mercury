@@ -5,7 +5,7 @@
 ## ✨ Features
 
 - 📢 **Slack Integration** — Sends rich, block-formatted messages to Slack channels.
-- 📬 **Microsoft Graph Email** — Sends emails using the Microsoft Graph API with secure MSAL authentication.
+- 📬 **iCloud+ Email** — Sends emails via iCloud+ custom email over SMTP (smtp.mail.me.com) using an app-specific password.
 - 📩 **Google API Email** — Send alerts via Gmail API (optional module).
 - 📱 **Twilio SMS Alerts** — Sends text messages for critical alerts using Twilio.
 - 🧩 **Modular Architecture** — Easily extendable to support more protocols or destinations.
@@ -16,7 +16,7 @@ Prometheus Mercury is not a replacement for Alertmanager—it's a powerful **out
 
 - Receives webhook alerts from Prometheus Alertmanager.
 - Routes alerts to the correct channel based on severity and rules.
-- Sends messages across Slack, Email (MS or Google), and SMS.
+- Sends messages across Slack, Email (iCloud+ or Google), and SMS.
 
 ## 🐳 Containerized Deployment (Recommended)
 
@@ -67,13 +67,14 @@ TWILIO_AUTH_TOKEN=your-twilio-token
 TWILIO_FROM=+15555551234
 TWILIO_DEFAULT_TO=+15555556789
 
-# Microsoft Graph
-MS_CLIENT_ID=your-ms-client-id
-MS_CLIENT_SECRET=your-ms-client-secret
-MS_TENANT_ID=your-ms-tenant-id
-MS_USERNAME=your-email@domain.com
-MS_EMAIL_TO=recipient@domain.com
+# iCloud+ (smtp.mail.me.com, app-specific password from appleid.apple.com)
+ICLOUD_EMAIL=your-icloud-address@icloud.com
+ICLOUD_APP_PASSWORD=xxxx-xxxx-xxxx-xxxx
+ICLOUD_EMAIL_TO=recipient@domain.com
+ICLOUD_FROM_NAME=Mercury Alerts
 ```
+
+> An `.env.example` with the same layout (no real secrets) is included in the repo — copy it to `.env` and fill in your values.
 
 ### 4. Create a `systemd` service file (optional):
 
@@ -102,12 +103,12 @@ sudo systemctl start mercury
 
 ## 🚀 API Endpoints
 
-| Endpoint              | Description                      |
-| --------------------- | -------------------------------- |
-| `POST /slack-alert`   | Send alerts to Slack             |
-| `POST /msgraph-alert` | Send alerts via Microsoft email  |
-| `POST /twilio-alert`  | Send SMS messages (if enabled)   |
-| `POST /alert`         | Unified route to Slack/SMS/Email |
+| Endpoint             | Description                      |
+| -------------------- | --------------------------------- |
+| `POST /slack-alert`  | Send alerts to Slack             |
+| `POST /icloud-alert` | Send alerts via iCloud+ email     |
+| `POST /twilio-alert` | Send SMS messages (if enabled)   |
+| `POST /alert`        | Unified route to Slack/SMS/Email |
 
 Use tools like **Postman** or **curl** to test with Alertmanager-style payloads.
 

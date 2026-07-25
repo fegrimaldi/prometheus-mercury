@@ -2,7 +2,7 @@ import sendSlackMessage from "./slackClient.mjs";
 import sendSMS from "./twilioClient.mjs";
 import { timeStamp } from "./utils.mjs";
 
-// import sendMSGraphEmail from "msGraphClient";
+// import sendICloudEmail from "./icloudClient.mjs";
 // import sendGoogleEmail from "googleClient";
 // Add this map at the top of the file (outside the function)
 const lastSentTimestamps = new Map();

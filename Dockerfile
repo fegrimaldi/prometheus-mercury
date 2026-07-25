@@ -1,6 +1,7 @@
 # Use official Node LTS base image.
 # Pinned to 24: Node 25 removed buffer.SlowBuffer, which the unmaintained
-# buffer-equal-constant-time (via @azure/msal-node -> jsonwebtoken) needs.
+# buffer-equal-constant-time package needs (pulled in transitively via jwa/jws,
+# currently through googleapis -> google-auth-library).
 FROM node:24-alpine
 
 # Create app directory

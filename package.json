@@ -18,12 +18,12 @@
     "node": ">=20 <25"
   },
   "dependencies": {
-    "@azure/msal-node": "^3.4.1",
     "axios": "^1.8.4",
     "body-parser": "^2.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "googleapis": "^148.0.0",
+    "nodemailer": "^9.0.3",
     "twilio": "^5.5.1"
   }
 }
